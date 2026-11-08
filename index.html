@@ -74,17 +74,21 @@ button:focus-visible{outline:3px solid var(--glow2);outline-offset:3px}
 .err{min-height:20px;margin:0;font-size:14px;color:#ff6b79}
 .wait{display:none;flex-direction:column;align-items:center;gap:18px}
 .wait.on{display:flex;animation:in .5s ease both}
-.ring{
-  width:54px;height:54px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--glow1);
-  animation:spin 1s linear infinite;
+.check{
+  width:68px;height:68px;border-radius:50%;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(135deg,var(--glow1),var(--glow2));
+  animation:pop .5s cubic-bezier(.2,1.4,.4,1) both;
 }
+.check svg{width:34px;height:34px}
+.check path{stroke-dasharray:30;stroke-dashoffset:30;animation:draw .4s .25s ease forwards}
 .wait h2{margin:0;font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.02em}
 .wait p{margin:0;color:var(--muted);font-size:16px;line-height:1.5;max-width:38ch}
 .wait b{color:var(--fg);font-weight:600;word-break:break-all}
 .back{background:none;color:var(--muted);height:auto;font-weight:600;font-size:14px;padding:6px 10px;text-decoration:underline}
-@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes draw{to{stroke-dashoffset:0}}
 @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.ring{animation-duration:3s}.wait.on{animation:none}}
+@media (prefers-reduced-motion:reduce){.check,.check path{animation:none;stroke-dashoffset:0}.wait.on{animation:none}}
 </style>
 </head>
 <body>
@@ -103,9 +107,9 @@ button:focus-visible{outline:3px solid var(--glow2);outline-offset:3px}
   </section>
 
   <section class="wait" id="wait" aria-live="polite">
-    <div class="ring" aria-hidden="true"></div>
-    <h2>Ожидайте оформления</h2>
-    <p>Запрос для <b id="who"></b> отправлен. Как только подключение будет оформлено, вы получите письмо.</p>
+    <div class="check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h2>Запрос отправлен</h2>
+    <p>Ожидайте: на <b id="who"></b> придёт письмо с подтверждением.</p>
     <button class="back" type="button" id="back">Изменить почту</button>
   </section>
 </main>
