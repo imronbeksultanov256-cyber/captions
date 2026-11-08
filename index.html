@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Captions & Jio Links — подключение</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0a0a0c; --fg:#f5f5f7; --muted:#8e8e99; --line:#26262d; --field:#141418;
+  --btn:#f5f5f7; --btn-fg:#0a0a0c; --glow1:#6c4bff; --glow2:#2f7bff; --ok:#7dffb0;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    color-scheme:light;
+    --bg:#f6f6f8; --fg:#0e0e12; --muted:#6b6b76; --line:#dcdce3; --field:#fff;
+    --btn:#0e0e12; --btn-fg:#fff; --glow1:#b9a6ff; --glow2:#a5c8ff; --ok:#0a8f4a;
+  }
+}
+:root[data-theme="light"]{color-scheme:light;--bg:#f6f6f8;--fg:#0e0e12;--muted:#6b6b76;--line:#dcdce3;--field:#fff;--btn:#0e0e12;--btn-fg:#fff;--glow1:#b9a6ff;--glow2:#a5c8ff;--ok:#0a8f4a}
+:root[data-theme="dark"]{color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+.glow{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.glow::before,.glow::after{
+  content:"";position:absolute;width:60vmax;height:60vmax;border-radius:50%;filter:blur(110px);opacity:.28;
+}
+.glow::before{background:var(--glow1);left:-20vmax;top:-25vmax}
+.glow::after{background:var(--glow2);right:-25vmax;bottom:-30vmax}
+main{
+  position:relative;min-height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:32px 20px;text-align:center;
+}
+.brand{
+  position:absolute;top:calc(22px + env(safe-area-inset-top,0px));left:0;right:0;
+  display:flex;justify-content:center;align-items:center;gap:10px;
+  font-weight:700;font-size:17px;letter-spacing:-.01em;
+}
+.brand i{
+  width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--glow1),var(--glow2));color:#fff;font-style:normal;font-size:14px;font-weight:800;
+}
+h1{
+  margin:0 0 14px;font-weight:800;letter-spacing:-.035em;line-height:1.04;
+  font-size:clamp(38px,8vw,72px);max-width:12ch;
+}
+.lead{margin:0 0 36px;color:var(--muted);font-size:clamp(16px,2.2vw,19px);line-height:1.5;max-width:42ch}
+form{width:100%;max-width:440px;display:flex;flex-direction:column;gap:12px}
+input{
+  width:100%;height:56px;padding:0 20px;border-radius:999px;border:1px solid var(--line);
+  background:var(--field);color:var(--fg);font:inherit;font-size:16px;font-weight:500;outline:none;
+  transition:border-color .2s, box-shadow .2s;
+}
+input::placeholder{color:var(--muted)}
+input:focus-visible{border-color:var(--glow1);box-shadow:0 0 0 4px color-mix(in srgb,var(--glow1) 28%,transparent)}
+input[aria-invalid="true"]{border-color:#ff5a6a}
+button{
+  height:56px;border:0;border-radius:999px;background:var(--btn);color:var(--btn-fg);
+  font:inherit;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s, opacity .2s;
+}
+button:hover{opacity:.9}
+button:active{transform:scale(.98)}
+button:focus-visible{outline:3px solid var(--glow2);outline-offset:3px}
+.err{min-height:20px;margin:0;font-size:14px;color:#ff6b79}
+.wait{display:none;flex-direction:column;align-items:center;gap:18px}
+.wait.on{display:flex;animation:in .5s ease both}
+.ring{
+  width:54px;height:54px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--glow1);
+  animation:spin 1s linear infinite;
+}
+.wait h2{margin:0;font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.02em}
+.wait p{margin:0;color:var(--muted);font-size:16px;line-height:1.5;max-width:38ch}
+.wait b{color:var(--fg);font-weight:600;word-break:break-all}
+.back{background:none;color:var(--muted);height:auto;font-weight:600;font-size:14px;padding:6px 10px;text-decoration:underline}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ring{animation-duration:3s}.wait.on{animation:none}}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<main>
+  <div class="brand"><i>C</i><span>Captions & Jio Links</span></div>
+
+  <section id="start">
+    <h1>Подключение к Captions</h1>
+    <p class="lead">Введите почту, и мы отправим запрос на подключение через Jio Links.</p>
+    <form id="f" novalidate>
+      <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="Ваша почта" aria-label="Почта" required>
+      <p class="err" id="err" role="alert"></p>
+      <button type="submit">Отправить запрос</button>
+    </form>
+  </section>
+
+  <section class="wait" id="wait" aria-live="polite">
+    <div class="ring" aria-hidden="true"></div>
+    <h2>Ожидайте оформления</h2>
+    <p>Запрос для <b id="who"></b> отправлен. Как только подключение будет оформлено, вы получите письмо.</p>
+    <button class="back" type="button" id="back">Изменить почту</button>
+  </section>
+</main>
+<script>
+(function(){
+  var f=document.getElementById('f'),em=document.getElementById('email'),err=document.getElementById('err'),
+      start=document.getElementById('start'),wait=document.getElementById('wait'),who=document.getElementById('who');
+  var re=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=em.value.trim();
+    if(!re.test(v)){
+      em.setAttribute('aria-invalid','true');
+      err.textContent='Введите почту полностью, например name@mail.com';
+      em.focus();return;
+    }
+    em.removeAttribute('aria-invalid');err.textContent='';
+    who.textContent=v;start.style.display='none';wait.classList.add('on');
+  });
+  em.addEventListener('input',function(){em.removeAttribute('aria-invalid');err.textContent=''});
+  document.getElementById('back').addEventListener('click',function(){
+    wait.classList.remove('on');start.style.display='';em.focus();
+  });
+})();
+</script>
+</body>
+</html>
